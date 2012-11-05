@@ -226,7 +226,7 @@ end;
 execute inscription_cci ('relsiba_a', 'namghar_a');
 -------
 
-create or replace procedure Desinscription(uo_user varchar2) is 
+create or replace procedure clotureCompte(uo_user varchar2) is 
 	x integer;
 begin
 	select id_client into x from client where ou_client = uo_user;
