@@ -74,7 +74,7 @@
 -----------------------------------------------------------------------------------------------
 -- les prelevements des comptes
 -----------------------------------------------------------------------------------------------
- drop table prelevement cascade constraints;
+ drop table prelevements cascade constraints;
 --
  drop sequence seq_id_prelevement;
  create sequence seq_id_prelevement;
