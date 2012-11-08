@@ -24,7 +24,7 @@
 
  create table client(
 	id_client integer,-- /* id unique du client*/
-	ou_client varchar2(10) not null,--/* user oracle*/ 
+	ou_client varchar2(12) not null,--/* user oracle*/ 
 	etat integer,               -- /* soit 0 actif ou 1 bloque */
 	solde integer,
 	decouvert_autorise integer,	
@@ -35,19 +35,6 @@
 	constraint un_ora_user unique (ou_client) 
  );
 
-------------------------------------------------------------------------------------------------
--- les comptes de tous les client de la banque
-------------------------------------------------------------------------------------------------
--- drop table comptes cascade constraints;
---
--- drop sequence seq_id_compte;
-
--------------------------------------------------------
--- drop table comptes_courant cascade constraints;
-
--------------------------------------------------------
--- un client peut avoir plusieur compte epargne
--- drop table comptes_epargne cascade constraints;
 
 -----------------------------------------------------------------------------------------------
 -- les virements d'un compte d'un compte d'une certaine banque vers un autre compte  
@@ -86,31 +73,9 @@
 	constraint pk_id_prelevement primary key (id_prelevement),	
 	constraint ch_montant_prelevement check (montant > 0)
  );
------------------------------------------------------------------------------------------------
--- historique du solde des comptes
------------------------------------------------------------------------------------------------
--- drop table historique_comptes cascade constraints;
---
 
------------------------------------------------------------------------------------------------
--- les credits
------------------------------------------------------------------------------------------------
- drop table credits cascade constraints;
---
- drop sequence seq_id_credits;
- create sequence seq_id_credits;
---
- create table credits(
-	id_credit integer,
-	id_client integer,
-	montant integer,
-	date_debut_credit date,
-	duree integer, /* duree du credit en mois*/
-	taux integer,
-	constraint pk_id_credit primary key (id_credit),
-	constraint fk_id_client_credit foreign key (id_client) references client(id_client),
-	constraint ck_montant check ( montant > 0)
- );
+
+
 -----------------------------------------------------------------------------------------------
 ---------------------------------- fonction et procedures -------------------------------------
 -----------------------------------------------------------------------------------------------
@@ -188,6 +153,8 @@ end;
 -----------------------------------------------------------------------------------------------
 -- recevoirVirement(id_acheteur : integer, id_banque_acheteur : integer, id_vendeur : integer, montant : integer, reference : integer) -> boolean
 --
+
+
 -----------------------------------------------------------------------------------------------
 -- historique(id_user : integer)
 --
@@ -224,7 +191,8 @@ end;
 /
 
 
--------
+--------------------------------------------------------------------------------------------
+--- clotureCompte
 
 create or replace procedure clotureCompte(uo_user varchar2) is 
 	x integer;
@@ -236,7 +204,8 @@ begin
 	
 end;
 /
---------------------------------------------
+--------------------------------------------------------------------------------------------
+--- getsSlde
 create or replace procedure getSolde(uo varchar2)is
 	s integer;
 	sqlDyn varchar2(100);
@@ -250,7 +219,10 @@ begin
 end;
 / 
 
----------------------------------------------
+-------------------------------------------------------------------------------------------
+------fonctions pour les taxes 
+------------------------------------------------------------------------------------------
+---- tax prises lors du virement
 create or replace procedure virtax(idc integer,monid integer, montant integer) is
 	temp integer;
 	s integer;
@@ -259,6 +231,7 @@ begin
 	
 	select taux into t from refbanque;
 	temp := montant*t;
+	if (temp < 1) then temp := 1; end if; 
 	update client 
 	set solde = solde - temp
 	where id_client = idc;
@@ -268,6 +241,7 @@ begin
 end;
 /
 
+----- bonus donner au client quand il resoit de l'argent
 create or replace procedure givtax(idc integer,monid integer,montant integer) is
 	temp integer;
 	s integer;
@@ -276,6 +250,7 @@ begin
 	 
 	select taux into t from refbanque;
 	temp := montant*t;
+	if (temp < 1) then temp := 1; end if; 
 	if( s> 2000)then
 		update client 
 		set solde = solde + (temp/2)
@@ -288,19 +263,52 @@ end;
 /
 
 
+------------------------------------------------------------------------------------
+-- grant des execute pour les fonctions
+--
  grant execute on getSolde to public;
  grant execute on clotureCompte to public;
- set serveroutput on;
+ 
  grant execute on ouvrirCompte to public;	
  grant execute on virement to public;	
  grant execute on recevoirVirement to public;
  grant execute on historique to public;	
 
+ set serveroutput on;
+
+---------affichage locale
+create or replace procedure get_info is
+
+cursor c is
+	select id_client,ou_client,solde, decouvert_autorise 
+	from client;
+
+cursor c2 is
+	select id_client_debiter,id_client_crediter,montant 
+	from virements;
+
+
+begin
+	dbms_output.put_line (' Comptes clients ');	
+ 	for x in c loop
+	exit when c% Notfound;
+	dbms_output.put_line (' Id : '||x.id_client||' user : '||x.ou_client||' solde : '||x.solde||' decouvert autorise :'||x.decouvert_autorise);
+	end loop;
+
+	dbms_output.put_line (' Historiques des virements ');		
+
+	for x in c2 loop
+	exit when c2% Notfound;
+	dbms_output.put_line (' Client debiter: '||x.id_client_debiter||' Client crediter : '||x.id_client_crediter||' Montant : '||x.montant);
+	end loop;
+end;
+/
+
+-- fonction a executer lors du demarage
 -- execute relsiba_a.desinscription('namghar_a');
 -- execute inscription_cci ('relsiba_a', 'namghar_a');
 -- delete from refbanque;
--- select * from refbanque;
- 
+-- select * from refbanque; 
 -- select * from comptes m,client c where c.id_client = m.id_client;
 -- delete from comptes;
 -- delete from client ;	

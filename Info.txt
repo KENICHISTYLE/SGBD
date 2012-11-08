@@ -1,2 +1,4 @@
-
 Info : depart
+Correction :
+nom de desinscription -> clotureCompte
+solde_a dans virement rectifie pour eviter perte de solde
