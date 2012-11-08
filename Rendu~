@@ -1,0 +1,76 @@
+
+Banque inscrite à la CCI
+
+ ID_CLIENT OU_CLIENT	    ETAT      SOLDE DECOUVERT_AUTORISE
+---------- ---------- ---------- ---------- ------------------
+	 3 namghar_a	       0       2000		  -150
+
+
+Entreprises inscrites
+
+ ID_CLIENT OU_CLIENT	    ETAT      SOLDE DECOUVERT_AUTORISE
+---------- ---------- ---------- ---------- ------------------
+	 7 ajiamali_a	       0       2000		  -150
+	 2 nabbas_a	       0       2000		  -150
+	 4 pcouder_a	       0       2000		  -150
+	 3 namghar_a	       0       2000		  -150
+
+E2 achete à E3
+
+
+ID_CLIENT OU_CLIENT	    ETAT      SOLDE DECOUVERT_AUTORISE
+---------- ---------- ---------- ---------- ------------------
+	 7 ajiamali_a	       0       1539		  -150
+	 2 nabbas_a	       0       2000		  -150
+	 4 pcouder_a	       0       2339		  -150
+	 3 namghar_a	       0       2079		  -150
+
+
+E3 achete à E4
+
+ ID_CLIENT OU_CLIENT	    ETAT      SOLDE DECOUVERT_AUTORISE
+---------- ---------- ---------- ---------- ------------------
+	 7 ajiamali_a	       0       1539		  -150
+	 2 nabbas_a	       0       2000		  -150
+	 4 pcouder_a	       0       2269		  -150
+	 3 namghar_a	       0       2125		  -150
+
+
+E4 achete à E5
+
+ ID_CLIENT OU_CLIENT	    ETAT      SOLDE DECOUVERT_AUTORISE
+---------- ---------- ---------- ---------- ------------------
+	 7 ajiamali_a	       0       1539		  -150
+	 2 nabbas_a	       0       2404		  -150
+	 4 pcouder_a	       0       2269		  -150
+	 3 namghar_a	       0       2149		  -150
+
+
+
+E5 achete à E2
+
+ ID_CLIENT OU_CLIENT	    ETAT      SOLDE DECOUVERT_AUTORISE
+---------- ---------- ---------- ---------- ------------------
+	 7 ajiamali_a	       0       1554		  -150
+	 2 nabbas_a	       0       2341		  -150
+	 4 pcouder_a	       0       2269		  -150
+	 3 namghar_a	       0       2197		  -150
+
+E2 achete à E1
+
+ ID_CLIENT OU_CLIENT	    ETAT      SOLDE DECOUVERT_AUTORISE
+---------- ---------- ---------- ---------- ------------------
+	 7 ajiamali_a	       0       1376		  -150
+	 2 nabbas_a	       0       2341		  -150
+	 4 pcouder_a	       0       2269		  -150
+	 3 namghar_a	       0       2225		  -150
+
+CCI achete à E1
+
+ ID_CLIENT OU_CLIENT	    ETAT      SOLDE DECOUVERT_AUTORISE
+---------- ---------- ---------- ---------- ------------------
+	 7 ajiamali_a	       0       1376		  -150
+	 2 nabbas_a	       0       2341		  -150
+	 4 pcouder_a	       0       2269		  -150
+	 3 namghar_a	       0       2225		  -150
+

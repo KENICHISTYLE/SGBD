@@ -70,11 +70,11 @@
 	constraint pk_id_virement primary key (id_virement),
 	constraint ch_montant_virement check (montant > 0)
  );
-
+--select id_client_debiter ,id_client_crediter,montant from virements;
 -----------------------------------------------------------------------------------------------
 -- les prelevements des comptes
 -----------------------------------------------------------------------------------------------
- drop table prelevements cascade constraints;
+ drop table prelevement cascade constraints;
 --
  drop sequence seq_id_prelevement;
  create sequence seq_id_prelevement;
@@ -251,16 +251,14 @@ end;
 / 
 
 ---------------------------------------------
-create or replace procedure virtax(idc integer,monid integer) is
+create or replace procedure virtax(idc integer,monid integer, montant integer) is
 	temp integer;
 	s integer;
 	t float(2);	
 begin
-	select solde 
-	into s	
-	from client where id_client = idc; 
+	
 	select taux into t from refbanque;
-	temp := s*t;
+	temp := montant*t;
 	update client 
 	set solde = solde - temp
 	where id_client = idc;
@@ -270,23 +268,18 @@ begin
 end;
 /
 
-create or replace procedure givtax(idc integer,monid integer) is
+create or replace procedure givtax(idc integer,monid integer,montant integer) is
 	temp integer;
 	s integer;
 	t float(2);	
 begin
-	select solde 
-	into s	
-	from client where id_client = idc; 
+	 
 	select taux into t from refbanque;
-	temp := s*t;
-	if( s> 1000)then
+	temp := montant*t;
+	if( s> 2000)then
 		update client 
 		set solde = solde + (temp/2)
-		where id_client = idc;
-		update client
-		set solde = solde + (temp/2)
-		where id_client = monid;
+		where id_client = idc;		
 	end if;
 end;
 /

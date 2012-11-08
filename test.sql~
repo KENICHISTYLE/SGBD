@@ -54,7 +54,7 @@ begin
 				from client
 				where id_client = id_vendeur;
 				dbms_output.put_line(' banque : '||uo_v);
-				virtax(id_acheteur,idb,montant);
+				virtax(id_acheteur,idb);
 				-- notification
 				query := 'begin  '||uo_v||'.notifierVirement(:ida,:ref);  end;';
 				execute immediate query using  in id_acheteur, in reference;
@@ -89,7 +89,7 @@ begin
 				set solde = solde - montant
 				where id_client = id_acheteur;
 				insert into virements values (incval,id_acheteur,id_vendeur,idb,id_banque_vendeur,montant,1,SYSDATE);
-				virtax(id_acheteur,idb,montant);
+				virtax(id_acheteur,idb);
 				end;
 			else 
 				begin

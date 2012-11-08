@@ -1,0 +1,32 @@
+
+E2 (B1) -> E3 (B2)
+
+AVANT
+
+SQL> select * from client;
+
+ ID_CLIENT OU_CLIENT	    ETAT      SOLDE DECOUVERT_AUTORISE
+---------- ---------- ---------- ---------- ------------------
+	 2 namghar_a	       0       2000		  -150
+	 4 pcouder_a	       0       2000		  -150
+	 6 sadams_a	       0       2000		  -150
+	 5 yyue 	       0       2000		  -150
+
+
+SQL> select * from virements;
+
+no rows selected
+
+
+
+APRES
+
+
+
+
+
+E2 (B1) -> E4 (B2)
+
+
+
+
