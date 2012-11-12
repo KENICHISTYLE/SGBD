@@ -2,7 +2,7 @@
 -- AMGHAR Nassim 
 -- Groupe TP2
 -- Banque 
---
+-- Toutes les procedures et fonctions on ete ecrites par moi
 -----------------------------------------------------------------------------------------------
 -- les referance de la banque
 -----------------------------------------------------------------------------------------------
@@ -90,6 +90,8 @@ begin
 		end;
 end;
 /
+
+show errors;
 -- ouvrirCompte(id_user : integer, uo_user : varchar2) -> boolean  // fonctionne correctement
 -- 
 create or replace function ouvrirCompte(id_user in integer, uo_user in varchar2) return boolean is		
@@ -106,6 +108,7 @@ begin
 					
 end;
 /
+show errors;
 -----------------------------------------------------------------------------------------------
 -- annexe virement possible  // fonctionne correctement
 create or replace function virement_possible(id_user integer, montant integer) return boolean is
@@ -128,7 +131,7 @@ begin
 	return false; -- le solde n'est pas suffisant
 end;
 /
-
+show errors;
 -- virement(id_acheteur : integer, id_vendeur : integer, id_banque_vendeur : integer, uo_banque_vendeur : varchar2, montant : integer, reference : integer) -> boolean
 --
 create or replace function virement(id_acheteur in integer, id_vendeur in integer, id_banque_vendeur in integer,
@@ -233,9 +236,7 @@ begin
 end;
 /
 
-
-
-
+show errors;
 -----------------------------------------------------------------------------------------------
 -- recevoirVirement(id_acheteur : integer, id_banque_acheteur : integer, id_vendeur : integer, montant : integer, reference : integer) -> boolean
 --
@@ -275,7 +276,7 @@ begin
 	end if;
 end;
 /
-
+show errors;
 -----------------------------------------------------------------------------------------------
 -- historique(id_user : integer)
 --
@@ -291,7 +292,7 @@ begin
 end;
 / 
 
-
+show errors;
 ---------------------------------------------------------------------------------------------
 -- inscription cci
 create or replace procedure inscription_cci (cci_uo varchar2, mon_uo varchar2) is
@@ -311,7 +312,7 @@ begin
 end;
 /
 
-
+show errors;
 --------------------------------------------------------------------------------------------
 --- clotureCompte
 
@@ -325,6 +326,7 @@ begin
 	
 end;
 /
+show errors;
 --------------------------------------------------------------------------------------------
 --- getsSlde
 create or replace procedure getSolde(uo varchar2)is
@@ -339,7 +341,7 @@ begin
 
 end;
 / 
-
+show errors;
 -------------------------------------------------------------------------------------------
 ------fonctions pour les taxes 
 ------------------------------------------------------------------------------------------
