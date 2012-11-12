@@ -1,3 +1,6 @@
+
+
+
 create or replace function recevoirVirement(id_acheteur in integer, id_banque_acheteur in integer, 
 		id_vendeur in integer, montant in integer, reference in integer) return boolean is
 	idb integer;	

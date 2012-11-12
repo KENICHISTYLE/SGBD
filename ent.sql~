@@ -12,7 +12,7 @@ declare
 b boolean;
 begin
 --insert into refbanque values (30,0.02);
---insert into client values (30,'sdsqdsq',0,2000,(-150));	
+insert into client values (222,'sdsqdsq',0,2000,(-150));	
 --b := ouvrirCompte(30,'namghar_a');
 get_info();
 b := virement(222,30, 30,'namghar_a',200,0 );

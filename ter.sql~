@@ -1,3 +1,9 @@
+-- virement(id_acheteur : integer, id_vendeur : integer, id_banque_vendeur : integer, uo_banque_vendeur : varchar2, montant : integer, reference : integer) -> boolean
+
+--
+
+
+
 create or replace function recevoirVirement(id_acheteur in integer, id_banque_acheteur in integer, 
 		id_vendeur in integer, montant in integer, reference in integer) return boolean is
 	idb integer;	
@@ -19,7 +25,7 @@ begin
 		update client  -- on augmante le solde du compte du vendeur
 		set solde = solde + montant
 		where id_client = id_vendeur;	
-		givtax(	id_vendeur,idb);
+		givtax(	id_vendeur,idb,montant);
 		insert into virements values (incval,id_acheteur,id_vendeur,id_banque_acheteur,idb,montant,1,SYSDATE);		
 		dbms_output.put_line(' uo vendeur '||uo_v|| '  ');
 		query := 'begin  '||uo_v||'.notifierVirement(:ida,:ref);  end;';
